@@ -3,17 +3,23 @@
 <head>
     <title></title>
     <meta charset="utf-8" />
-    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+    <!--<link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.408/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.408/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.408/styles/kendo.mobile.all.min.css" />
     <link href="styles/main.css" rel="stylesheet" />
 
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
-    <script src="kendo/js/kendo.mobile.min.js"></script>
+    <!-- Kendo Core does not provide Grid widget -->
+    <!--<script src="kendo/js/kendo.mobile.min.js"></script>-->
+    <script src="http://cdn.kendostatic.com/2015.1.408/js/kendo.all.min.js"></script>
 
     <script src="bower_components/pouchdb/dist/pouchdb.min.js"></script>
     <script src="bower_components/pouchdb-collate/dist/pouchdb-collate.js"></script>
     <script src="bower_components/kendo-pouchdb/dist/kendo-pouchdb.min.js"></script>
-
+    
+    <script src="scripts/products.js"></script>
     <script src="scripts/app.js"></script>
 
 </head>
