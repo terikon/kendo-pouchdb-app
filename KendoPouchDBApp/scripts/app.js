@@ -45,7 +45,7 @@
 
             window.cblite.getURL(function (err, url) {
                 if (err) {
-                    console.log(showNotification("CouchbaseLite Initilization error " + JSON.stringify(err)));
+                    console.log(showNotification("CouchbaseLite Initilization error " + JSON.stringify(err), "error"));
                     deferred.fail(err);
                 }
                 //alert("url:" + url);
@@ -64,7 +64,7 @@
 
             new PouchDB(url)
                 .then(function (db) {
-                    db.allDocs({ limit: 0 })
+                    return db.allDocs( /*{ limit: 0 }*/) //For some reason limit:0 does provides total_rows in PouchDB, but not in Couchbase Lite.
                         .then(function (result) {
                             if (result.total_rows === 0) {
                                 return fillData(db);
@@ -76,7 +76,7 @@
                         });
                 })
                 .catch(function (error) {
-                    console.log(showNotification("PouchDB database creation error:" + JSON.stringify(error.message)));
+                    console.log(showNotification("PouchDB database creation error:" + JSON.stringify(error.message), "error"));
                     throw error;
                 });
             return deferred.promise();
@@ -114,12 +114,14 @@
                     }
                 },
                 change: function (e) {
-                    console.log("change!");
                     if (e.action == "add") {
                         var item = e.items[0];
                         item.ProductID = autoincrement;
                         autoincrement++;
                     }
+                },
+                error: function (e) {
+                    console.log(showNotification("Error occured in kendo-pouchdb" + JSON.stringify(e), "error"));
                 }
             });
 
@@ -145,16 +147,16 @@
         };
 
     var popupNotification,
-        showNotification = function (message) {
+        showNotification = function (message, type) {
             if (popupNotification) {
-                popupNotification.show(message);
+                popupNotification.show(message, type);
             }
             return message;
         },
         init = function () {
             popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
 
-            setupDb();//In reality, this will better be run right after deviceready to make db initialization parallel to kendo.mobile.Application initialization.
+            setupDb(); //In reality, this will better be run right after deviceready to make db initialization parallel to kendo.mobile.Application initialization.
         };
 
     // this function is called by Cordova when the application is loaded by the device
