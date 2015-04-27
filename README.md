@@ -1,7 +1,7 @@
 # kendo-pouchdb-app
 
 KendoPouchDBApp - POC application that shows 
-[kendo-pouchdb](<https://github.com/terikon/kendo-pouchdb>) connected to [Couchbase Mobile](<http://www.couchbase.com/nosql-databases/couchbase-mobile>).
+[kendo-pouchdb](<https://github.com/terikon/kendo-pouchdb>) connected to [Couchbase Mobile](<http://www.couchbase.com/nosql-databases/couchbase-mobile>), with [Couchbase Lite Phonegap plugin](<https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin>).
 
 To achieve this, [PouchDB](<http://pouchdb.com/>) is used.
 
