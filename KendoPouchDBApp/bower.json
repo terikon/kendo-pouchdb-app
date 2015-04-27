@@ -1,0 +1,6 @@
+{
+  "name": "KendoPouchDBApp",
+  "dependencies": {
+	"kendo-pouchdb": "*"
+  }  
+}

@@ -46,3 +46,9 @@ obj/**/*
 **/*.bak
 **/*.cache
 **/*.log
+
+# Bower
+bower_components/kendo-ui-core/**/*
+bower_components/jquery/**/*
+bower_components/*/!(dist)
+bower_components/*/!(dist)/**/*

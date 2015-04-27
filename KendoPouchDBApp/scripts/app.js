@@ -26,7 +26,7 @@
     var couchbaseSetup = function () {
         window.cblite.getURL(function (err, url) {
             if (err) {
-                alert("CouchbaseLite Initilization error " + JSON.stringify(err))
+                alert("CouchbaseLite Initilization error " + JSON.stringify(err));
             }
             alert("url:" + url);
         });
