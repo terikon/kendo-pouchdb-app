@@ -1,0 +1,40 @@
+{
+	"ProjectName": "KendoPouchDBApp",
+	"ProjectGuid": "{a5ae172f-67bc-4666-811b-8dafd1265acf}",
+	"projectVersion": 1,
+	"AppIdentifier": "com.terikon.KendoPouchDBApp",
+	"DisplayName": "KendoPouchDBApp",
+	"Author": "",
+	"Description": "",
+	"BundleVersion": "1.0",
+	"AndroidVersionCode": "1",
+	"iOSDeviceFamily": [
+		"1",
+		"2"
+	],
+	"iOSBackgroundMode": [],
+	"ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
+	"FrameworkVersion": "3.5.0",
+	"AndroidPermissions": [],
+	"DeviceOrientations": [
+		"Portrait",
+		"Landscape"
+	],
+	"AndroidHardwareAcceleration": "false",
+	"iOSStatusBarStyle": "Default",
+	"Framework": "Cordova",
+	"WP8TileTitle": "",
+	"WP8Publisher": "",
+	"WP8Capabilities": [],
+	"WP8Requirements": [],
+	"WP8PublisherID": "{485e1c50-57cc-4821-afeb-0b8f4913c0d8}",
+	"WP8ProductID": "{9bac04db-99d1-4ede-a821-38933ca0e9f5}",
+	"WPSdk": "8.0",
+	"WP8PackageIdentityName": "1234Telerik.com.terikon.KendoPouchDBApp",
+	"WP8WindowsPublisherName": "CN=Telerik",
+	"WP8SupportedResolutions": [
+		"ID_RESOLUTION_WVGA",
+		"ID_RESOLUTION_WXGA",
+		"ID_RESOLUTION_HD720P"
+	]
+}
