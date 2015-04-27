@@ -16,7 +16,10 @@
             contacts: new kendo.data.ObservableObject({
                 title: 'Contacts',
                 ds: new kendo.data.DataSource({
-                    data: [{ href: "mailto:npm@terikon.com?subject=Question about KendoPouchDBApp", name: 'email npm@terikon.com' }, { href: "https://github.com/terikon/kendo-pouchdb", name: 'kendo-pouchdb homepage' }]
+                    data: [
+                        { href: "mailto:npm@terikon.com?subject=Question about KendoPouchDBApp", name: 'email npm@terikon.com' },
+                        { href: "https://github.com/terikon/kendo-pouchdb", name: 'kendo-pouchdb homepage' }
+                    ]
                 }),
                 openLink: function (e) {
                     window.open(e.data.href, "_system");
@@ -36,16 +39,17 @@
         },
 
         couchbaseSetup = function () {
-            console.log("Initializing Couchbase Lite database...");
+            console.log(showNotification("Initializing Couchbase Lite database..."));
 
             var deferred = new $.Deferred();
 
             window.cblite.getURL(function (err, url) {
                 if (err) {
-                    console.log("CouchbaseLite Initilization error " + JSON.stringify(err));
+                    console.log(showNotification("CouchbaseLite Initilization error " + JSON.stringify(err)));
                     deferred.fail(err);
                 }
                 //alert("url:" + url);
+                console.log(showNotification("CouchbaseLite initialized on " + url));
                 deferred.resolve(url + "my-database");
             });
             return deferred.promise();
@@ -54,7 +58,7 @@
         autoincrement = products.length + 100,
 
         pouchDBSetup = function (url) {
-            console.log("Initializing PouchDB connection...");
+            console.log(showNotification("Initializing PouchDB connection..."));
 
             var deferred = new $.Deferred();
 
@@ -72,7 +76,7 @@
                         });
                 })
                 .catch(function (error) {
-                    console.log("PouchDB database creation error:" + JSON.stringify(error.message));
+                    console.log(showNotification("PouchDB database creation error:" + JSON.stringify(error.message)));
                     throw error;
                 });
             return deferred.promise();
@@ -80,44 +84,44 @@
 
         //Will fill database with demo data
         fillData = function (db) {
-            console.log("Creating demo data...");
+            console.log(showNotification("Creating demo data..."));
             $.each(products, function (_, product) { product._id = pouchCollate.toIndexableString(product.ProductID); });
             return db.bulkDocs(products);
         },
 
         kendoPouchDBSetup = function (db) {
 
-            console.log("Initializing kendo-pouchdb adapter...");
+            console.log(showNotification("Initializing kendo-pouchdb adapter..."));
 
             var dataSource = new kendo.data.PouchableDataSource({
-                    type: "pouchdb",
-                    transport: {
-                        pouchdb: {
-                            db: db,
-                            idField: "ProductID"
-                        }
-                    },
-                    schema: {
-                        model: {
-                            //Do not specify id here, id:"_id" will be used.
-                            fields: {
-                                ProductID: { editable: false, nullable: true },
-                                ProductName: { validation: { required: true } },
-                                UnitPrice: { type: "number", validation: { required: true, min: 1 } },
-                                Discontinued: { type: "boolean" },
-                                UnitsInStock: { type: "number", validation: { min: 0, required: true } }
-                            }
-                        }
-                    },
-                    change: function (e) {
-                        console.log("change!");
-                        if (e.action == "add") {
-                            var item = e.items[0];
-                            item.ProductID = autoincrement;
-                            autoincrement++;
+                type: "pouchdb",
+                transport: {
+                    pouchdb: {
+                        db: db,
+                        idField: "ProductID"
+                    }
+                },
+                schema: {
+                    model: {
+                        //Do not specify id here, id:"_id" will be used.
+                        fields: {
+                            ProductID: { editable: false, nullable: true },
+                            ProductName: { validation: { required: true } },
+                            UnitPrice: { type: "number", validation: { required: true, min: 1 } },
+                            Discontinued: { type: "boolean" },
+                            UnitsInStock: { type: "number", validation: { min: 0, required: true } }
                         }
                     }
-                });
+                },
+                change: function (e) {
+                    console.log("change!");
+                    if (e.action == "add") {
+                        var item = e.items[0];
+                        item.ProductID = autoincrement;
+                        autoincrement++;
+                    }
+                }
+            });
 
             return dataSource;
 
@@ -125,7 +129,7 @@
 
         kendoGridSetup = function (dataSource) {
             $("#grid").kendoGrid({
-               dataSource: dataSource,
+                dataSource: dataSource,
                 height: 550,
                 toolbar: ["create"],
                 columns: [
@@ -140,9 +144,18 @@
             return dataSource;
         };
 
-    var init = function () {
+    var popupNotification,
+        showNotification = function (message) {
+            if (popupNotification) {
+                popupNotification.show(message);
+            }
+            return message;
+        },
+        init = function () {
+            popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
 
-    };
+            setupDb();//In reality, this will better be run right after deviceready to make db initialization parallel to kendo.mobile.Application initialization.
+        };
 
     // this function is called by Cordova when the application is loaded by the device
     document.addEventListener('deviceready', function () {
@@ -150,8 +163,6 @@
         // hide the splash screen as soon as the app is ready. otherwise
         // Cordova will wait 5 very long seconds to do it for you.
         navigator.splashscreen.hide();
-
-        setupDb();
 
         app = new kendo.mobile.Application(document.body, {
 
