@@ -1,6 +1,7 @@
 .ab/
 bower_components/
 obj/
+bin/
 *.suo
 *.user
 KendoPouchDBApp.sln
