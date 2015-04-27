@@ -5,6 +5,8 @@ KendoPouchDBApp - POC application that shows
 
 To achieve this, [PouchDB](<http://pouchdb.com/>) is used.
 
+![alt screenshot](http://terikon.github.io/kendo-pouchdb-app/images/screen-grid-small.png)]
+
 ## Status
 
 Currently, because of some bug in db.put method, create/update/delete operations are not functional. Read works and displays
