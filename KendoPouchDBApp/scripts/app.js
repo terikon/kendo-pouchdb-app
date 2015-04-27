@@ -16,7 +16,7 @@
                 ds: new kendo.data.DataSource({
                     data: [{ href: "mailto:npm@terikon.com?subject=Question about KendoPouchDBApp", name: 'email npm@terikon.com' }, { href: "https://github.com/terikon/kendo-pouchdb", name: 'kendo-pouchdb homepage' }]
                 }),
-                open: function (e) {
+                openLink: function (e) {
                     window.open(e.data.href, "_system");
                 }
             }

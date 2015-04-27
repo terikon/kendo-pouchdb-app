@@ -1,5 +1,7 @@
 .ab/
 bower_components/
+obj/
 *.suo
+*.user
 KendoPouchDBApp.sln
 KendoPouchDBApp.iceproj
